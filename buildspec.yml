@@ -11,12 +11,9 @@ phases:
   install:
     runtime-versions:
       java: corretto17
+      maven: 3.8
     commands:
-      - echo Installing Maven...
-      - curl -sL https://downloads.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip -o maven.zip
-      - unzip -q maven.zip
-      - export MAVEN_HOME=$PWD/apache-maven-3.8.7
-      - export PATH=$MAVEN_HOME/bin:$PATH
+      - echo "Using preinstalled Maven and Java"
   build:
     commands:
       - echo Building the JAR...
