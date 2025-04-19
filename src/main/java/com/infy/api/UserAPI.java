@@ -83,7 +83,7 @@ public class UserAPI {
 	public ResponseEntity<String> getAddressList(Integer userId) throws Exception{
 		
 		//Your code goes here
-		String str="Hi Vivek Kumar Gautam";
+		String str="Hi Vivek Kumar";
 		   return new ResponseEntity<String>(str,HttpStatus.OK);
 	}
 	
