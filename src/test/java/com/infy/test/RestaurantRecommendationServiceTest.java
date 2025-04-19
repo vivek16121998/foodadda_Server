@@ -11,42 +11,42 @@ import com.infy.service.RestaurantRecommendationServiceImpl;
 public class RestaurantRecommendationServiceTest {
 
 	
-	private RestaurantRepository restaurantRepository;
-	
-	
-	private UsersRepository usersRepository;
-	
-	
-	private RestaurantRecommendationService restaurantRecommendationService =  new RestaurantRecommendationServiceImpl();
-	
-	
-	@Test
-	public void areaInvalidTest() throws Exception{
-		
-		//Your code goes here
-	
-	}
-	
-	@Test
-	public void areaValidTest() throws Exception{
-		
-		//Your code goes here
-		
-		
-	}
-	
-	
-	@Test
-	public void userInvalidTest() throws Exception{
-		
-		//Your code goes here
-	}
-	
-	@Test
-	public void userValidTest() throws Exception{
-		
-		//Your code goes here
-
-	}
+//	private RestaurantRepository restaurantRepository;
+//	
+//	
+//	private UsersRepository usersRepository;
+//	
+//	
+//	private RestaurantRecommendationService restaurantRecommendationService =  new RestaurantRecommendationServiceImpl();
+//	
+//	
+//	@Test
+//	public void areaInvalidTest() throws Exception{
+//		
+//		//Your code goes here
+//	
+//	}
+//	
+//	@Test
+//	public void areaValidTest() throws Exception{
+//		
+//		//Your code goes here
+//		
+//		
+//	}
+//	
+//	
+//	@Test
+//	public void userInvalidTest() throws Exception{
+//		
+//		//Your code goes here
+//	}
+//	
+//	@Test
+//	public void userValidTest() throws Exception{
+//		
+//		//Your code goes here
+//
+//	}
 
 }

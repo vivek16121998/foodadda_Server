@@ -18,7 +18,7 @@ import com.infy.dto.OrdersDTO;
 import com.infy.dto.PlaceOrderDTO;
 import com.infy.service.OrderService;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 @RestController
 @RequestMapping("orderAPI")
 public class OrderAPI {

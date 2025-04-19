@@ -11,7 +11,7 @@ import com.infy.entity.Wallet;
 public interface WalletRepository extends CrudRepository<Wallet, Integer> {
 	
 	
-	@Query(value = "SELECT * FROM CIBO.WALLET where user_id=:userId",nativeQuery = true)
+	@Query(value = "SELECT * FROM cibo.wallet where user_id=:userId",nativeQuery = true)
 	List<Wallet> getUserId(@Param("userId") Integer userId);
 	
 
