@@ -10,4 +10,4 @@ phases:
   artifacts:
     files:
         - target/FoodAdda.jar
-  discard-paths: yes
+  discard-paths: true
