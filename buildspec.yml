@@ -2,34 +2,41 @@ version: 0.2
 
 env:
   variables:
-    JAR_NAME: "FoodAdda.jar"
+    JAR_NAME: FoodAdda.jar
+    S3_BUCKET: foodadda-deploy-artifacts
+    EB_APP_NAME: foodaddaserver
+    EB_ENV_NAME: Foodaddaserver-env
 
 phases:
   install:
     runtime-versions:
       java: corretto17
     commands:
-      - echo Installing AWS CLI if needed...
-      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      - unzip -q awscliv2.zip
-      - sudo ./aws/install || true
-
+      - echo Installing Maven...
+      - curl -sL https://downloads.apache.org/maven/maven-3/3.8.7/binaries/apache-maven-3.8.7-bin.zip -o maven.zip
+      - unzip -q maven.zip
+      - export MAVEN_HOME=$PWD/apache-maven-3.8.7
+      - export PATH=$MAVEN_HOME/bin:$PATH
   build:
     commands:
-      - echo Building the Spring Boot app...
+      - echo Building the JAR...
       - mvn clean package -DskipTests
-
   post_build:
     commands:
-      - echo Uploading $JAR_NAME to S3...
-      - aws s3 cp target/$JAR_NAME s3://foodadda-deploy-artifacts/$JAR_NAME
-      - echo Creating application version...
+      - echo Build completed. Preparing to deploy...
       - VERSION_LABEL=$(date +%Y%m%d%H%M%S)
-      - echo Using version label: $VERSION_LABEL
-      - aws elasticbeanstalk create-application-version --application-name foodaddaserver --version-label "$VERSION_LABEL" --source-bundle S3Bucket="foodadda-deploy-artifacts",S3Key="$JAR_NAME"
-      - echo Updating environment...
-      - aws elasticbeanstalk update-environment --environment-name Foodaddaserver-env --version-label "$VERSION_LABEL"
+      - echo Uploading $JAR_NAME to S3...
+      - aws s3 cp target/$JAR_NAME s3://$S3_BUCKET/$JAR_NAME
+      - echo Creating new Elastic Beanstalk application version...
+      - >
+        aws elasticbeanstalk create-application-version
+        --application-name $EB_APP_NAME
+        --version-label "$VERSION_LABEL"
+        --source-bundle S3Bucket="$S3_BUCKET",S3Key="$JAR_NAME"
+      - echo Updating Elastic Beanstalk environment...
+      - aws elasticbeanstalk update-environment --environment-name $EB_ENV_NAME --version-label "$VERSION_LABEL"
 
 artifacts:
   files:
     - target/FoodAdda.jar
+  discard-paths: true
