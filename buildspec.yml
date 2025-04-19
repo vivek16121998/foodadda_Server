@@ -1,32 +1,40 @@
 version: 0.2
 
+env:
+  variables:
+    VERSION_LABEL: "v-$(date +%Y%m%d%H%M%S)"
+
 phases:
   install:
     runtime-versions:
       java: corretto17
     commands:
-      - echo Installing Maven...
-      - yum install -y maven
+      - echo Installing AWS CLI if not already available...
+      - curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      - unzip -q awscliv2.zip
+      - sudo ./aws/install || true
+
   build:
     commands:
-      - echo Building the Spring Boot app...
+      - echo Building JAR...
       - mvn clean package -DskipTests
+
   post_build:
     commands:
-      - echo Build complete.
-      - echo Uploading JAR to S3...
+      - echo Uploading artifact to S3...
       - aws s3 cp target/FoodAdda.jar s3://foodadda-deploy-artifacts/FoodAdda.jar
-      - VERSION_LABEL=v1-`date +%Y%m%d%H%M%S`
-      - echo Creating Elastic Beanstalk version $VERSION_LABEL...
+      - echo Creating new Elastic Beanstalk application version...
+      - export VERSION_LABEL=$(date +%Y%m%d%H%M%S)
       - aws elasticbeanstalk create-application-version \
           --application-name foodaddaserver \
-          --version-label $VERSION_LABEL \
+          --version-label "$VERSION_LABEL" \
           --source-bundle S3Bucket="foodadda-deploy-artifacts",S3Key="FoodAdda.jar"
       - echo Updating Elastic Beanstalk environment...
       - aws elasticbeanstalk update-environment \
           --environment-name Foodaddaserver-env \
-          --version-label $VERSION_LABEL
+          --version-label "$VERSION_LABEL"
 
 artifacts:
   files:
     - target/FoodAdda.jar
+
