@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,11 +79,12 @@ public class UserAPI {
 		
 
 	}
-	
-	public ResponseEntity<UsersDTO> getAddressList(Integer userId) throws Exception{
+	@GetMapping(value = "hello")
+	public ResponseEntity<String> getAddressList(Integer userId) throws Exception{
 		
 		//Your code goes here
-		   return null;
+		String str="Hi Vivek Kumar Gautam";
+		   return new ResponseEntity<String>(str,HttpStatus.OK);
 	}
 	
 	
