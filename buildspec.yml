@@ -1,39 +1,16 @@
 version: 0.2
 
-env:
-  variables:
-    JAR_NAME: FoodAdda.jar
-    S3_BUCKET: foodadda-deploy-artifacts
-    EB_APP_NAME: foodaddaserver
-    EB_ENV_NAME: Foodaddaserver-env
-
 phases:
-  install:
-    runtime-versions:
-      java: corretto17
-      maven: 3.8
-    commands:
-      - echo "Using preinstalled Maven and Java"
   build:
     commands:
-      - echo Building the JAR...
-      - mvn clean package -DskipTests
+      - echo Packaging JAR file...
+      - mvn clean package
+
   post_build:
     commands:
-      - echo Build completed. Preparing to deploy...
-      - VERSION_LABEL=$(date +%Y%m%d%H%M%S)
-      - echo Uploading $JAR_NAME to S3...
-      - aws s3 cp target/$JAR_NAME s3://$S3_BUCKET/$JAR_NAME
-      - echo Creating new Elastic Beanstalk application version...
-      - >
-        aws elasticbeanstalk create-application-version
-        --application-name $EB_APP_NAME
-        --version-label "$VERSION_LABEL"
-        --source-bundle S3Bucket="$S3_BUCKET",S3Key="$JAR_NAME"
-      - echo Updating Elastic Beanstalk environment...
-      - aws elasticbeanstalk update-environment --environment-name $EB_ENV_NAME --version-label "$VERSION_LABEL"
+      - echo Build complete.
 
 artifacts:
   files:
     - target/FoodAdda.jar
-  discard-paths: true
+  discard-paths: yes
