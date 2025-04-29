@@ -1,6 +1,6 @@
 package com.infy.api;
 
-import javax.validation.Valid;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.dto.UserAddressDTO;
 import com.infy.dto.UsersDTO;
 import com.infy.service.RestaurantRecommendationService;
 import com.infy.service.UserService;
 
-@Controller
+@RestController
 @Validated
 @RequestMapping(value = "/UserAPI")
 @CrossOrigin
