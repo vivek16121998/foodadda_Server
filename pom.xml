@@ -95,9 +95,9 @@ src/main/java/com/infy/repository/**</sonar.coverage.exclusions>
 			<artifactId>junit-platform-runner</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.33</version> <!--$NO-MVN-MAN-VER$ -->
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>9.3.0</version> <!--$NO-MVN-MAN-VER$ -->
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
