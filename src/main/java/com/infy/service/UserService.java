@@ -1,6 +1,8 @@
 package com.infy.service;
 
 
+import java.util.List;
+
 import com.infy.dto.UserAddressDTO;
 import com.infy.dto.UsersDTO;
 
@@ -15,4 +17,6 @@ public interface UserService {
 	public String updateAddress(UserAddressDTO address, Integer userId) throws Exception;
 	
 	public void deleteAddress(Integer addressId, Integer userId) throws Exception;
+	
+	public List<UserAddressDTO> getAddressList(Integer userId) throws Exception;
 }

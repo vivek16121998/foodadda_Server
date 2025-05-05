@@ -25,12 +25,12 @@ public class ExceptionControllerAdvice {
 	public ResponseEntity<ErrorMessage> handleValidationExceptions(MethodArgumentNotValidException ex) 
 	{
 		 ErrorMessage error = new ErrorMessage();
-	     error.setCode(HttpStatus.BAD_REQUEST.value());
+	     error.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	     error.setMessage(ex.getBindingResult().getAllErrors()
 	    		 		  	.stream().map(oe->oe.getDefaultMessage())//lambda equivalent -> x->x.getDefaultMessage()
 	    		 		  	.collect(Collectors.joining(", ")));
 	     error.setTimeStamp(LocalDateTime.now().toString());
-	        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 		
 	//Handler that handles the exception raised because of invalid data that is received as 
@@ -39,22 +39,22 @@ public class ExceptionControllerAdvice {
 	public ResponseEntity<ErrorMessage> handleConstraintValidationExceptions(ConstraintViolationException ex) 
 	{
 		 ErrorMessage error = new ErrorMessage();
-	     error.setCode(HttpStatus.BAD_REQUEST.value());
+	     error.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	     error.setMessage(ex.getConstraintViolations()
 	    		 			.stream().map(cv->cv.getMessage())//lambda equivalent -> x->x.getMessage()
 	    		 			.collect(Collectors.joining(", ")));
 	     error.setTimeStamp(LocalDateTime.now().toString());
-	     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	     return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(FoodAddaException.class)
 	public ResponseEntity<ErrorMessage> handleExceptions(FoodAddaException exception)
 	{
 		 ErrorMessage error = new ErrorMessage();
-	     error.setCode(HttpStatus.BAD_REQUEST.value());
+	     error.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
 	     error.setMessage(environment.getProperty(exception.getMessage()));
 	     error.setTimeStamp(LocalDateTime.now().toString());
-		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
 		
 	}
 	
