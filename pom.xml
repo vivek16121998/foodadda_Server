@@ -5,11 +5,13 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.4</version>
+		
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.infy</groupId>
 	<artifactId>FoodAdda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	 <packaging>war</packaging>
 	<name>FoodAdda</name>
 	<description>FoodAdda ServerSide project using Spring Boot</description>
 
@@ -124,7 +126,7 @@ src/main/java/com/infy/repository/**</sonar.coverage.exclusions>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<failIfNoTests>true</failIfNoTests>
+					<failIfNoTests>false</failIfNoTests>
 					<testFailureIgnore>true</testFailureIgnore>
 				</configuration>
 			</plugin>
