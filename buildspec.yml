@@ -9,6 +9,6 @@ phases:
       - echo Build complete.
 artifacts:
   files:
-    - target/FoodAdda.war
+    - target/FoodAdda.jar
   discard-paths: yes
   

@@ -11,7 +11,7 @@
 	<groupId>com.infy</groupId>
 	<artifactId>FoodAdda</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	 <packaging>war</packaging>
+	 <packaging>jar</packaging>
 	<name>FoodAdda</name>
 	<description>FoodAdda ServerSide project using Spring Boot</description>
 
