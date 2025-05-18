@@ -29,6 +29,7 @@ public class AdminAPI {
 	
 
 	
+	
 	static Logger logger = LogManager.getLogger(AdminAPI.class.getName());
 	
 	@GetMapping(value = "/allRestaurants")
