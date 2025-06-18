@@ -56,7 +56,7 @@ public class UserServiceImpl implements UserService{
 		
 		UsersDTO userdto = mapper.map(user, UsersDTO.class);
 
-		List<Wallet> wallets = walletRepository.getUserId(user.getUserId());
+		List<Wallet> wallets = walletRepository.getWalletByUserId(user.getUserId());
 		Wallet wallet = wallets.get(0);
 		WalletDTO walletDTO = mapper.map(wallet, WalletDTO.class);
 		userdto.setWallet(walletDTO);
@@ -204,6 +204,20 @@ public class UserServiceImpl implements UserService{
 		}
 		
 		return UserAddressDTOList;
+	}
+	
+	@Override
+	public WalletDTO updateWalletBalance(Integer topUpAmount,Integer userId) throws Exception {
+
+		List<Wallet> wallets = walletRepository.getWalletByUserId(userId);
+		if(wallets.isEmpty()) {
+			throw new FoodAddaException("UserService.USER_NOT_FOUND");
+		}
+		Wallet wallet = wallets.get(0);
+		wallet.setAvailableAmount(wallet.getAvailableAmount()+topUpAmount);
+		WalletDTO walletDTO = mapper.map(walletRepository.save(wallet), WalletDTO.class);
+		System.out.print(walletDTO.getAvailableAmount());
+		return walletDTO;
 	}
 }
 

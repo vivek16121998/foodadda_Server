@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService{
 		if(order==null) {
 			throw new FoodAddaException("orderService.NO_ORDER_FOUND");
 		}
-		List<Wallet> wallets = walletRepository.getUserId(user.getUserId());
+		List<Wallet> wallets = walletRepository.getWalletByUserId(user.getUserId());
 		Wallet wallet = wallets.get(0);
 		if(wallet.getAvailableAmount()<order.getOrderBill()) {
 			

@@ -4,6 +4,8 @@ package com.infy.api;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -22,10 +24,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.infy.dto.UserAddressDTO;
 import com.infy.dto.UsersDTO;
+import com.infy.dto.WalletDTO;
 import com.infy.service.RestaurantRecommendationService;
 import com.infy.service.UserService;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 
 @RestController
 @Validated
@@ -36,12 +40,14 @@ public class UserAPI {
 	
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private Environment environment;
 	
-	@Autowired
-	private RestaurantRecommendationService recommendationService;
+	static Logger logger = LogManager.getLogger(AdminAPI.class.getName());
+
+//	@Autowired
+//	private Environment environment;
+//	
+//	@Autowired
+//	private RestaurantRecommendationService recommendationService;
 
 	
 	@PostMapping(value = "/userRegister")
@@ -98,6 +104,13 @@ public class UserAPI {
 		//Your code goes here
 //          this.userService.getAddressList(userId);
 		   return  new ResponseEntity<List<UserAddressDTO>>(this.userService.getAddressList(userId),HttpStatus.OK);
+	}
+	@GetMapping(value = "updateWalletBalance/{topUpAmount}/{userId}")
+	public ResponseEntity<WalletDTO> updateWalletBalance( @PathVariable @Positive Integer topUpAmount, @PathVariable Integer userId) throws Exception{
+		
+		
+		return new ResponseEntity<WalletDTO>(this.userService.updateWalletBalance(topUpAmount, userId),HttpStatus.OK);
+		
 	}
 	
 	

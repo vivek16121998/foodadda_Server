@@ -12,7 +12,7 @@ public interface WalletRepository extends CrudRepository<Wallet, Integer> {
 	
 	
 	@Query(value = "SELECT * FROM cibo.wallet where user_id=:userId",nativeQuery = true)
-	List<Wallet> getUserId(@Param("userId") Integer userId);
+	List<Wallet> getWalletByUserId(@Param("userId") Integer userId);
 	
 
 }
